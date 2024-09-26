@@ -6,7 +6,7 @@ public class VersionStrategyModule : IGitVersionModule
 {
     public void RegisterTypes(IServiceCollection services)
     {
-        var versionStrategies = IGitVersionModule.FindAllDerivedTypes<IVersionStrategy>(Assembly.GetAssembly(GetType()))
+        var versionStrategies = GitVersionModule.FindAllDerivedTypes<IVersionStrategy>(Assembly.GetAssembly(GetType()))
             .Where(x => x is { IsAbstract: false, IsInterface: false });
 
         foreach (var versionStrategy in versionStrategies)

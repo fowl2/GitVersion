@@ -193,8 +193,13 @@ internal class GitVersionCacheKeyFactory(
         }
 
         var bytes = Encoding.UTF8.GetBytes(textToHash);
-        var hashedBytes = SHA1.HashData(bytes);
+
+#if NET
+        return Convert.ToHexString(SHA1.HashData(bytes));
+#else
+        var hashedBytes = SHA1.Create().ComputeHash(bytes);
         var hashedString = BitConverter.ToString(hashedBytes);
         return hashedString.Replace("-", "");
+#endif
     }
 }

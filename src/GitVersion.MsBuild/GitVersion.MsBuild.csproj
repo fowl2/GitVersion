@@ -11,6 +11,9 @@
 
         <BinPath>bin/$(Configuration)</BinPath>
         <ExePublishPath>../GitVersion.App/$(BinPath)</ExePublishPath>
+
+        <TargetFrameworks>net48;$(TargetFrameworks)</TargetFrameworks>
+
     </PropertyGroup>
 
     <ItemGroup>

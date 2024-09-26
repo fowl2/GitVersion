@@ -26,4 +26,9 @@ public static class StringExtensions
 
     public static string WithPrefixIfNotNullOrEmpty(this string value, string prefix)
         => string.IsNullOrEmpty(value) ? value : prefix + value;
+
+#if NETFRAMEWORK
+    internal static bool EndsWith(this string str, char c)
+        => str.EndsWith(new string([c]));
+#endif
 }

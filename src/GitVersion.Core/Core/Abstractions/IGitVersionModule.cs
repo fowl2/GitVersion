@@ -7,7 +7,15 @@ public interface IGitVersionModule
 {
     void RegisterTypes(IServiceCollection services);
 
+#if NETCOREAPP3_0_OR_GREATER
     static IEnumerable<Type> FindAllDerivedTypes<T>(Assembly? assembly)
+        => GitVersionModule.FindAllDerivedTypes<T>(assembly);
+#endif
+}
+
+internal static class GitVersionModule
+{
+    public static IEnumerable<Type> FindAllDerivedTypes<T>(Assembly? assembly)
     {
         assembly.NotNull();
 

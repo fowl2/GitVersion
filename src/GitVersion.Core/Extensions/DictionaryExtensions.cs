@@ -4,8 +4,8 @@ public static class DictionaryExtensions
 {
     public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, Func<TValue> getValue)
     {
-        if (dict is null) throw new ArgumentNullException(nameof(dict));
-        if (getValue is null) throw new ArgumentNullException(nameof(getValue));
+        ArgumentNullException.ThrowIfNull(dict);
+        ArgumentNullException.ThrowIfNull(getValue);
 
         if (!dict.TryGetValue(key, out var value))
         {
@@ -14,4 +14,14 @@ public static class DictionaryExtensions
         }
         return value;
     }
+
+#if !NET8_0_OR_GREATER
+    internal static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> source)
+        where TKey : notnull
+#if NET
+        => new(source);
+#else
+        => MoreLinq.MoreEnumerable.ToDictionary(source);
+#endif
+#endif
 }

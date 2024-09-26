@@ -19,7 +19,7 @@
         <RepositoryType>git</RepositoryType>
 
         <NoWarn>$(NoWarn);NU1701;1591,8618,SYSLIB10;EnableGenerateDocumentationFile</NoWarn>
-        <WarningsAsErrors>$(WarningsAsErrors);RS0016;RS0017;RS0022;RS0024;RS0025;RS0026;RS0027</WarningsAsErrors>
+        <WarningsAsErrors>$(WarningsAsErrors);RS0022;RS0024;RS0025;RS0026;RS0027</WarningsAsErrors>
 
         <DebugType>embedded</DebugType>
         <LangVersion>12</LangVersion>
@@ -50,6 +50,18 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+        <PackageReference Include="PolySharp" />
+        <PackageReference Include="System.Text.Json" />
+        <PackageReference Include="System.Net.Http" />
+        <PackageReference Include="System.Text.RegularExpressions" />
+        <PackageReference Include="MoreLinq" />
+        <Reference Include="System.Linq" />
+        <Using Include="GitVersion.Extensions.ArgumentNullException" Alias="ArgumentNullException" />
+        <Using Include="System.Net.Http" />
+    </ItemGroup>
+
     <ItemGroup Condition=" '$(IsUnitTestProject)' == 'false' and $(MSBuildProjectName.EndsWith('.Schema')) == 'false' and '$(DisableApiAnalyzers)' == 'false'">
         <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers">
             <PrivateAssets>all</PrivateAssets>

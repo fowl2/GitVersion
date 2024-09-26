@@ -17,7 +17,12 @@ internal record IgnoreConfiguration : IIgnoreConfiguration
     }
 
     [JsonIgnore]
-    IReadOnlySet<string> IIgnoreConfiguration.Shas => Shas;
+#if NETCOREAPP3_0_OR_GREATER
+    IReadOnlySet<string>
+#else
+    ISet<string>
+#endif
+        IIgnoreConfiguration.Shas => Shas;
 
     [JsonPropertyName("sha")]
     [JsonPropertyDescription("A sequence of SHAs to be excluded from the version calculations.")]

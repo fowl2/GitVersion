@@ -2,14 +2,11 @@
 
     <PropertyGroup>
         <DefineConstants>GITVERSION_OUTPUT</DefineConstants>
+        <TargetFrameworks>net48;$(TargetFrameworks)</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\GitVersion.Core\GitVersion.Core.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="System.Text.Json"/>
     </ItemGroup>
     
     <ItemGroup>

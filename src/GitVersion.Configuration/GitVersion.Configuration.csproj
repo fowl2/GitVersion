@@ -2,6 +2,7 @@
     
     <PropertyGroup>
         <DefineConstants>GITVERSION_CONFIGURATION</DefineConstants>
+        <TargetFrameworks>net48;$(TargetFrameworks)</TargetFrameworks>
     </PropertyGroup>
     
     <ItemGroup>
@@ -9,7 +10,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.Text.Json" />
         <PackageReference Include="YamlDotNet" />
     </ItemGroup>
 

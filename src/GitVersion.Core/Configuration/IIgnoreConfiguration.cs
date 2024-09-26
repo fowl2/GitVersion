@@ -4,7 +4,13 @@ public interface IIgnoreConfiguration
 {
     DateTimeOffset? Before { get; }
 
+#if NETCOREAPP3_0_OR_GREATER
     IReadOnlySet<string> Shas { get; }
+#else
+    ISet<string> Shas { get; }
+#endif
 
-    public bool IsEmpty => Before == null && Shas.Count == 0;
+#if NETCOREAPP3_0_OR_GREATER
+    public bool IsEmpty => IgnoreConfigurationExtensions.IsEmpty(this);
+#endif
 }

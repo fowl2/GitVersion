@@ -21,10 +21,7 @@ public static class EnumerableExtensions
 
     public static T SingleOfType<T>(this IEnumerable source)
     {
-        if (source == null)
-        {
-            throw new ArgumentNullException(nameof(source));
-        }
+        ArgumentNullException.ThrowIfNull(source);
 
         return source.OfType<T>().Single();
     }
@@ -38,4 +35,9 @@ public static class EnumerableExtensions
             source.Add(item);
         }
     }
+
+#if NETFRAMEWORK
+    internal static TSource? MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+          => MoreLinq.MoreEnumerable.Minima(source, keySelector).FirstOrDefault();
+#endif
 }

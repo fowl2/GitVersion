@@ -23,8 +23,10 @@ public interface IBranchConfiguration
 
     public string? RegularExpression { get; }
 
+#if NETCOREAPP3_0_OR_GREATER
     public bool IsMatch(string branchName)
-        => RegularExpression != null && Regex.IsMatch(branchName, RegularExpression, RegexOptions.IgnoreCase);
+        => BranchConfigurationExtensions.IsMatch(this, branchName);
+#endif
 
     IReadOnlyCollection<string> SourceBranches { get; }
 
@@ -41,4 +43,10 @@ public interface IBranchConfiguration
     IBranchConfiguration Inherit(IBranchConfiguration configuration);
 
     IBranchConfiguration Inherit(EffectiveConfiguration configuration);
+}
+
+internal static class BranchConfigurationExtensions
+{
+    internal static bool IsMatch(this IBranchConfiguration branchConfiguration, string branchName)
+        => branchConfiguration.RegularExpression != null && Regex.IsMatch(branchName, branchConfiguration.RegularExpression, RegexOptions.IgnoreCase);
 }

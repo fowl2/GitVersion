@@ -204,7 +204,8 @@ internal abstract class ConfigurationBuilderBase<TConfigurationBuilder> : IConfi
 
     public virtual TConfigurationBuilder WithVersionStrategy(VersionStrategies value)
     {
-        this.versionStrategies = Enum.GetValues<VersionStrategies>()
+        this.versionStrategies = Enum.GetValues(typeof(VersionStrategies))
+            .Cast<VersionStrategies>()
             .Where(element => element != VersionStrategies.None && value.HasFlag(element))
             .ToArray();
         return (TConfigurationBuilder)this;
@@ -218,7 +219,7 @@ internal abstract class ConfigurationBuilderBase<TConfigurationBuilder> : IConfi
 
     public virtual TConfigurationBuilder WithMergeMessageFormats(IReadOnlyDictionary<string, string> value)
     {
-        this.mergeMessageFormats = new(value);
+        this.mergeMessageFormats = value.ToDictionary();
         return (TConfigurationBuilder)this;
     }
 

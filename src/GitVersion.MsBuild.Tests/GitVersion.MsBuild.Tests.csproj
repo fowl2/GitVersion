@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <ItemGroup>
-        <PackageReference Include="Buildalyzer" />
+        <PackageReference Include="Buildalyzer"  Condition="'$(TargetFramework)' != 'net48'"/>
         <PackageReference Include="LibGit2Sharp" />
         <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
         <PackageReference Include="Microsoft.Build" />
